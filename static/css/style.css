@@ -1,0 +1,92 @@
+body {
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    background: #f5f7fb;
+}
+
+.container {
+
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 30px;
+}
+
+h1 {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 30px;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+form {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+input {
+
+    padding: 10px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+}
+
+button {
+
+    padding: 10px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+
+    padding: 12px;
+
+    border-bottom: 1px solid #ddd;
+
+    text-align: center;
+}
+
+a {
+
+    text-decoration: none;
+}

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>운동 파트너</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background-color: #f4f6fb;
+
+            color: #333;
+
+            padding: 40px;
+        }
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+        h1 {
+
+            text-align: center;
+
+            margin-bottom: 40px;
+
+            font-size: 40px;
+        }
+
+        .card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            margin-bottom: 30px;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+
+            margin-bottom: 20px;
+        }
+
+        form {
+
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        input {
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+        }
+
+        button {
+
+            padding: 12px 20px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+
+            padding: 15px;
+
+            text-align: center;
+
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+
+            background-color: #f0f2f7;
+        }
+
+        tr:hover {
+
+            background-color: #f9fafc;
+        }
+
+        a {
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        canvas {
+
+            max-height: 500px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏃 운동 보조</h1>
+
+    <!-- 입력 카드 -->
+    <div class="card">
+
+        <h2>운동 기록 입력</h2>
+
+        <form method="POST">
+
+            <input type="date" name="date" required>
+
+            <input type="number"
+                   step="0.1"
+                   name="weight"
+                   placeholder="몸무게 (kg)"
+                   required>
+
+            <input type="number"
+                   step="0.1"
+                   name="run_km"
+                   placeholder="달리기 거리 (km)"
+                   required>
+
+            <input type="number"
+                   name="run_time"
+                   placeholder="달리기 시간 (분)"
+                   required>
+
+            <button type="submit">저장</button>
+
+        </form>
+
+    </div>
+
+    <!-- 그래프 카드 -->
+    <div class="card">
+
+        <h2>운동 변화 그래프</h2>
+
+        <canvas id="weightChart"></canvas>
+
+    </div>
+
+    <!-- 기록 테이블 -->
+    <div class="card">
+
+        <h2>저장된 기록</h2>
+
+        <table>
+
+            <tr>
+
+                <th>날짜</th>
+                <th>몸무게</th>
+                <th>달리기 거리</th>
+                <th>달리기 시간</th>
+                <th>관리</th>
+
+            </tr>
+
+            {% for row in records %}
+
+            <tr>
+
+                <td>{{ row[1] }}</td>
+
+                <td>{{ row[2] }} kg</td>
+
+                <td>{{ row[3] }} km</td>
+
+                <td>{{ row[4] }} 분</td>
+
+                <td>
+                    <a href="/delete/{{ row[0] }}">
+                        삭제
+                    </a>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- Flask 데이터 전달 -->
+
+<script id="dates-data" type="application/json">
+    {{ dates | tojson }}
+</script>
+
+<script id="weights-data" type="application/json">
+    {{ weights | tojson }}
+</script>
+
+<script id="runkms-data" type="application/json">
+    {{ run_kms | tojson }}
+</script>
+
+<!-- JS 연결 -->
+
+<script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+
+</body>
+
+</html>
